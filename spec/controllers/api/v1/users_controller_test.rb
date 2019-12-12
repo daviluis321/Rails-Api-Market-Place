@@ -12,6 +12,11 @@ RSpec.describe  Api::V1::UsersController do
     end
 
     it 'responds a 302 response (not authorized)' do
+      post :update,, params: { id: @user.id }
+      expect(response).to have_http_status(403)
+    end
+
+    it 'responds a 302 response (not authorized)' do
       post :destroy, params: { id: @user.id }
       expect(response).to have_http_status(403)
     end
