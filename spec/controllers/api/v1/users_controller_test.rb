@@ -26,5 +26,10 @@ RSpec.describe  Api::V1::UsersController do
       expect(response.content_type).to eq('application/json; charset=utf-8')
     end
 
+    it 'should return keys of show get user json' do
+      get :show, params: { id: @user.id }   
+      json_response = JSON.parse(response.body)   
+      expect(json_response.keys).to match_array(["email","id","password_digest"])    
+    end
   end
 end
