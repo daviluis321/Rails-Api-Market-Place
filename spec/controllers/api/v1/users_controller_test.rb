@@ -6,22 +6,22 @@ RSpec.describe  Api::V1::UsersController do
       @user = create(:user)
     end
 
-    it 'responds a 200 response' do
+    it 'should respond with 200 when get user with id param' do
       get :show, params: { id: @user.id }
       expect(response).to have_http_status(200)
     end
 
-    it 'responds a 302 response (not authorized)' do
+    it 'should respond with 403 when update params are missing' do
       post :update, params: { id: @user.id }
       expect(response).to have_http_status(403)
     end
 
-    it 'responds a 302 response (not authorized)' do
+    it 'should respond with 403 when destroy params are missing' do
       post :destroy, params: { id: @user.id }
       expect(response).to have_http_status(403)
     end
 
-    it 'Content-Type JSON' do
+    it 'should return a json get user with correct params' do
       post :create, format: :json, params: { user: { email: 'test@test.org', password: '123456' } }
       expect(response.content_type).to eq('application/json; charset=utf-8')
     end
