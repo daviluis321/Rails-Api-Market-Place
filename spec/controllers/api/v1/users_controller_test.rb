@@ -12,13 +12,18 @@ RSpec.describe  Api::V1::UsersController do
     end
 
     it 'responds a 302 response (not authorized)' do
-      post :update,, params: { id: @user.id }
+      post :update, params: { id: @user.id }
       expect(response).to have_http_status(403)
     end
 
     it 'responds a 302 response (not authorized)' do
       post :destroy, params: { id: @user.id }
       expect(response).to have_http_status(403)
+    end
+
+    it 'Content-Type JSON' do
+      post :create, format: :json, params: { user: { email: 'test@test.org', password: '123456' } }
+      expect(response.content_type).to eq('application/json; charset=utf-8')
     end
 
   end
